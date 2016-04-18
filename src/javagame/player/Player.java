@@ -5,7 +5,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import javagame.constants.Types;
+import javagame.constants.ItemTypes;
 import javagame.items.Item;
 
 public class Player {
@@ -13,7 +13,6 @@ public class Player {
 	private Integer health;
 	private float playerSpeedMultiplier;
 	public Rectangle playerRectangle;
-	private Types type;
 	private int[] duration;
 	private float playerX;
 	private float playerY;
@@ -30,7 +29,6 @@ public class Player {
 		this.inventory = new HashMap<String, Item>();
 		this.health = 10;
 		this.playerSpeedMultiplier = 0.1f;
-		this.type = Types.PLAYER;
 		
 		duration = new int[] {200 ,200};
 		

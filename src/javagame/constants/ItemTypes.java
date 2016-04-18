@@ -1,12 +1,11 @@
 package javagame.constants;
 
-public enum Types {
-	PLAYER (0),
-	ITEM (1);
+public enum ItemTypes {
+	HEATLTH_BUFF(0);
 	
 	int id;
 	
-    Types(int id){
+    ItemTypes(int id){
 		this.id = id;
 	}
 	

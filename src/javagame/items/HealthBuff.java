@@ -6,8 +6,8 @@ public class HealthBuff extends Item {
 
 	private Integer healthIncrease;
 	
-	public HealthBuff(Image model){
-		super(model);
+	public HealthBuff(Image model, float itemX, float itemY){
+		super(model, itemX, itemY);
 		this.healthIncrease = 2;
 	}
 	
