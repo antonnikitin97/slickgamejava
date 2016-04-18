@@ -1,7 +1,7 @@
 package javagame.constants;
 
 public enum ItemTypes {
-	HEATLTH_BUFF(0);
+	HEALTH_BUFF(0);
 	
 	int id;
 	

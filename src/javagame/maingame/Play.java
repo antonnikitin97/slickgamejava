@@ -1,5 +1,8 @@
 package javagame.maingame;
 
+import javagame.constants.ItemTypes;
+import javagame.items.Item;
+import javagame.items.ItemFactory;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -11,6 +14,11 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import javagame.player.Player;
+import javagame.items.*;
+import org.newdawn.slick.tests.xml.*;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Play extends BasicGameState {
 
@@ -19,6 +27,8 @@ public class Play extends BasicGameState {
 	private Input gameInput;
 	private Image worldMap;
 	private boolean quit;
+    private ArrayList<Item> items;
+    private ItemFactory factory;
 	
 	public Play(Integer state){
 		this.state = state;
@@ -30,6 +40,10 @@ public class Play extends BasicGameState {
 		worldMap = new Image("res/world.png");
 		gameInput = gc.getInput();
 		player = new Player();
+        items = new ArrayList<>();
+        factory = ItemFactory.getInstance();
+
+        items.add(factory.getItem(ItemTypes.HEALTH_BUFF, 50, 50));
 	}
 
 	@Override
@@ -37,6 +51,10 @@ public class Play extends BasicGameState {
 		worldMap.draw(player.getPlayerX(), player.getPlayerY());
 		this.player.getPlayerCurrent().draw(player.getShiftX(), player.getShiftY());
 		//g.drawString("Bucky X: " + playerX +"\nBucky Y: " + playerY, 400, 20);
+
+        for (Item i : items){
+            i.render(player.getPlayerX(), player.getPlayerY());
+        }
 
         g.fill(player.playerRectangle);
 		g.draw(player.playerRectangle);
@@ -53,7 +71,17 @@ public class Play extends BasicGameState {
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
-			if(gameInput.isKeyDown(Input.KEY_UP) && player.getPlayerY() < 159.500f){
+        Iterator iterator = items.iterator();
+
+        while(iterator.hasNext()){
+            Item i = (Item)iterator.next();
+
+            if(i.intersects(player.getPlayerRectangle())){
+                items.remove(i);
+            }
+        }
+
+        if(gameInput.isKeyDown(Input.KEY_UP) && player.getPlayerY() < 159.500f){
 				player.setPlayerCurrent(player.getMovingUp());
 				player.setPlayerY(player.getPlayerY() + (delta * player.getPlayerSpeedMultiplier()));
 			}

@@ -12,7 +12,7 @@ public class Player {
 	private HashMap<String, Item> inventory;
 	private Integer health;
 	private float playerSpeedMultiplier;
-	public Rectangle playerRectangle;
+    public Rectangle playerRectangle;
 	private int[] duration;
 	private float playerX;
 	private float playerY;
@@ -131,4 +131,8 @@ public class Player {
 	public float getPlayerSpeedMultiplier(){
 		return this.playerSpeedMultiplier;
 	}
+
+    public Rectangle getPlayerRectangle() {
+        return playerRectangle;
+    }
 }
