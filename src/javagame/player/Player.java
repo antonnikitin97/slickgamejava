@@ -1,5 +1,6 @@
 package javagame.player;
 
+import javagame.constants.*;
 import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
@@ -8,13 +9,13 @@ import org.newdawn.slick.geom.Rectangle;
 import javagame.items.Item;
 
 public class Player {
-	private HashMap<String, Item> inventory;
+	private HashMap<ItemTypes, Item> inventory;
 	private Integer health;
 	private float playerSpeedMultiplier;
     public Rectangle playerRectangle;
 	private int[] duration;
-	private float playerMapX;
-    private float playerMapY;
+	private float playerWorldX;
+    private float playerWorldY;
 	private float playerScreenX = 320;
 	private float playerScreenY = 160;
 	private Image[] walkUp;
@@ -25,7 +26,7 @@ public class Player {
 	private Animation playerCurrent, movingUp, movingDown, movingLeft, movingRight;
 	
 	public Player(){
-		this.inventory = new HashMap<String, Item>();
+		this.inventory = new HashMap<>();
 		this.health = 10;
 		this.playerSpeedMultiplier = 0.1f;
 		
@@ -53,6 +54,8 @@ public class Player {
 	public Integer getHealth(){
 		return this.health;
 	}
+
+
 	
 	public void setHealth(Integer healthToSet){
 		if(this.health - healthToSet <0){
@@ -93,21 +96,21 @@ public class Player {
 	public Animation getMovingRight() {
 		return movingRight;
 	}
-	public float getPlayerMapX() {
-		return playerMapX;
+	public float getPlayerWorldX() {
+		return playerWorldX;
 	}
 
-	public void setPlayerMapX(float playerMapX) {
-		this.playerMapX = playerMapX;
+	public void setPlayerWorldX(float playerWorldX) {
+		this.playerWorldX = playerWorldX;
         this.playerRectangle.setBounds(playerScreenX, playerScreenY, this.playerCurrent.getWidth(), this.playerCurrent.getHeight());
 	}
 
-	public float getPlayerMapY() {
-		return playerMapY;
+	public float getPlayerWorldY() {
+		return playerWorldY;
 	}
 
-	public void setPlayerMapY(float playerMapY) {
-		this.playerMapY = playerMapY;
+	public void setPlayerWorldY(float playerWorldY) {
+		this.playerWorldY = playerWorldY;
         this.playerRectangle.setBounds(playerScreenX, playerScreenY, this.playerCurrent.getWidth(), this.playerCurrent.getHeight());
 	}
 
@@ -126,4 +129,8 @@ public class Player {
     public Rectangle getPlayerRectangle() {
         return playerRectangle;
     }
+
+	public void addItemToInventory(Item itemToAdd){
+		inventory.put(itemToAdd.getItemType(), itemToAdd);
+	}
 }

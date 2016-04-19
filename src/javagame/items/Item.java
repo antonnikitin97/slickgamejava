@@ -33,6 +33,10 @@ public abstract class Item implements Useable {
 		return this.id.getId();
 	}
 
+	public final ItemTypes getItemType(){
+		return this.id;
+	}
+
 	public final void render(float itemOffSetX, float itemOffSetY){
 		model.draw(modelRectangle.getX() + itemOffSetX, modelRectangle.getY() + itemOffSetY, itemWidth, itemHeight);
 	}
