@@ -5,7 +5,6 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import javagame.constants.ItemTypes;
 import javagame.items.Item;
 
 public class Player {
@@ -14,10 +13,10 @@ public class Player {
 	private float playerSpeedMultiplier;
     public Rectangle playerRectangle;
 	private int[] duration;
-	private float playerX;
-	private float playerY;
-	private float shiftX = playerX + 320;
-	private float shiftY = playerY + 160;
+	private float playerMapX;
+    private float playerMapY;
+	private float playerScreenX = 320;
+	private float playerScreenY = 160;
 	private Image[] walkUp;
 	private Image[] walkDown;
 	private Image[] walkLeft;
@@ -48,7 +47,7 @@ public class Player {
 		movingRight = new Animation(walkRight, duration, false);
 		
 		playerCurrent = movingDown;
-        playerRectangle = new Rectangle(shiftX, shiftY, playerCurrent.getWidth(), playerCurrent.getHeight());
+        playerRectangle = new Rectangle(playerScreenX, playerScreenY, playerCurrent.getWidth(), playerCurrent.getHeight());
 	}
 
 	public Integer getHealth(){
@@ -94,38 +93,30 @@ public class Player {
 	public Animation getMovingRight() {
 		return movingRight;
 	}
-	public float getPlayerX() {
-		return playerX;
+	public float getPlayerMapX() {
+		return playerMapX;
 	}
 
-	public void setPlayerX(float playerX) {
-		this.playerX = playerX;
-        this.playerRectangle.setBounds(shiftX, shiftY, this.playerCurrent.getWidth(), this.playerCurrent.getHeight());
+	public void setPlayerMapX(float playerMapX) {
+		this.playerMapX = playerMapX;
+        this.playerRectangle.setBounds(playerScreenX, playerScreenY, this.playerCurrent.getWidth(), this.playerCurrent.getHeight());
 	}
 
-	public float getPlayerY() {
-		return playerY;
+	public float getPlayerMapY() {
+		return playerMapY;
 	}
 
-	public void setPlayerY(float playerY) {
-		this.playerY = playerY;
-        this.playerRectangle.setBounds(shiftX, shiftY, this.playerCurrent.getWidth(), this.playerCurrent.getHeight());
+	public void setPlayerMapY(float playerMapY) {
+		this.playerMapY = playerMapY;
+        this.playerRectangle.setBounds(playerScreenX, playerScreenY, this.playerCurrent.getWidth(), this.playerCurrent.getHeight());
 	}
 
-	public float getShiftX() {
-		return shiftX;
+	public float getPlayerScreenX() {
+		return playerScreenX;
 	}
 
-	public void setShiftX(float shiftX) {
-		this.shiftX = shiftX;
-	}
-
-	public float getShiftY() {
-		return shiftY;
-	}
-
-	public void setShiftY(float shiftY) {
-		this.shiftY = shiftY;
+	public float getPlayerScreenY() {
+		return playerScreenY;
 	}
 
 	public float getPlayerSpeedMultiplier(){
