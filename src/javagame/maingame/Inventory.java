@@ -15,9 +15,9 @@ public class Inventory extends BasicGameState {
     private Integer stateID;
     private Player player;
 
-    public Inventory(Integer stateID, Player player){
+    public Inventory(Integer stateID){
         this.stateID = stateID;
-        this.player = player;
+        this.player = Player.getInstance();
     }
 
     @Override

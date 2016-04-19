@@ -9,6 +9,7 @@ import org.newdawn.slick.geom.Rectangle;
 import javagame.items.Item;
 
 public class Player {
+    private static Player instance;
 	private HashMap<ItemTypes, Item> inventory;
 	private Integer health;
 	private float playerSpeedMultiplier;
@@ -22,10 +23,17 @@ public class Player {
 	private Image[] walkDown;
 	private Image[] walkLeft;
 	private Image[] walkRight;
-	
+
 	private Animation playerCurrent, movingUp, movingDown, movingLeft, movingRight;
-	
-	public Player(){
+
+    public static Player getInstance(){
+        if(instance == null) {
+            return instance = new Player();
+        }else
+            return instance;
+    }
+
+	private Player(){
 		this.inventory = new HashMap<>();
 		this.health = 10;
 		this.playerSpeedMultiplier = 0.1f;

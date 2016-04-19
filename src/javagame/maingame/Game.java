@@ -11,12 +11,11 @@ public class Game extends StateBasedGame {
 	private final Integer PLAY = 1;
 	private final Integer INVENTORY = 2;
 	private Player player;
-	
+
 	public Game(String title){
 		super(title);
-		player = new Player();
 		this.addState(new MainMenu(MENU));
-		this.addState(new Play(PLAY, player));
+		this.addState(new Play(PLAY));
 		this.addState(new Inventory(INVENTORY, player));
 	}
 	

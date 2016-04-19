@@ -27,14 +27,14 @@ public class Play extends BasicGameState {
     private ItemFactory factory;
 	private Rectangle worldSpaceRectangle;
 	
-	public Play(Integer state, Player player){
+	public Play(Integer state){
 		this.state = state;
-		this.player = player;
 	}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		quit = false;
+		player = Player.getInstance();
 		worldMap = new Image("res/world.png");
 		gameInput = gc.getInput();
         items = new ArrayList<>();
