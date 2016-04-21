@@ -1,6 +1,5 @@
 package javagame.maingame;
 
-import javagame.player.Player;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.*;
@@ -10,13 +9,12 @@ public class Game extends StateBasedGame {
 	private final Integer MENU = 0;
 	private final Integer PLAY = 1;
 	private final Integer INVENTORY = 2;
-	private Player player;
 
 	public Game(String title){
 		super(title);
 		this.addState(new MainMenu(MENU));
 		this.addState(new Play(PLAY));
-		this.addState(new Inventory(INVENTORY, player));
+		this.addState(new InventoryScreen(INVENTORY));
 	}
 	
 	@Override

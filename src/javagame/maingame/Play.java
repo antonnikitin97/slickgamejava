@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Play extends BasicGameState {
 
 	private Player player;
-	private final Integer state;
+	private final java.lang.Integer state;
 	private Input gameInput;
 	private Image worldMap;
 	private boolean quit;
@@ -27,7 +27,7 @@ public class Play extends BasicGameState {
     private ItemFactory factory;
 	private Rectangle worldSpaceRectangle;
 	
-	public Play(Integer state){
+	public Play(java.lang.Integer state){
 		this.state = state;
 	}
 	
@@ -43,20 +43,21 @@ public class Play extends BasicGameState {
 				,player.getPlayerRectangle().getHeight());
 
         items.add(factory.getItem(ItemTypes.HEALTH_BUFF, 50, 50));
+		items.add(factory.getItem(ItemTypes.HEALTH_BUFF, 20, 20));
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 		worldMap.draw(player.getPlayerWorldX(), player.getPlayerWorldY());
 		this.player.getPlayerCurrent().draw(player.getPlayerScreenX(), player.getPlayerScreenY());
-		//g.drawString("Bucky X: " + playerX +"\nBucky Y: " + playerY, 400, 20);
 
 		g.fill(worldSpaceRectangle);
 		g.draw(worldSpaceRectangle);
 
-        for (Item i : items){
-            i.render(player.getPlayerWorldX(), player.getPlayerWorldY());
-        }
+		for (Item i : items){
+			//Renders the item on screen, offsetted by the player's movement to ensure it stays in the same position all the time.
+			i.render(player.getPlayerWorldX(), player.getPlayerWorldY());
+		}
 
 		if(quit){
 			g.drawString("Resume (R)", 250, 100);
@@ -73,8 +74,7 @@ public class Play extends BasicGameState {
         worldSpaceRectangle = new Rectangle(320 - player.getPlayerWorldX(), 160 - player.getPlayerWorldY() , player.getPlayerRectangle().getWidth()
         ,player.getPlayerRectangle().getHeight());
 
-		items.removeIf(item -> {player.addItemToInventory(item);
-			return item.intersects(worldSpaceRectangle);});
+		removeItemsFromWorld();
 
         if(gameInput.isKeyDown(Input.KEY_UP) && player.getPlayerWorldY() < 159.500f){
 				player.setPlayerCurrent(player.getMovingUp());
@@ -115,5 +115,16 @@ public class Play extends BasicGameState {
 	public int getID() {
 		return this.state;
 	}
-	
+
+	private void removeItemsFromWorld(){
+		items.removeIf(item ->
+		{
+			if (item.intersects(worldSpaceRectangle)) {
+				player.addItemToInventory(item);
+				return true;
+			}else{
+				return false;
+			}
+		});
+	}
 }

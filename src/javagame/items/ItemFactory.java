@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ItemFactory {
 	private static ItemFactory instance;
-	private HashMap<Integer, Image> itemImages;
+	private HashMap<java.lang.Integer, Image> itemImages;
 
 	public static ItemFactory getInstance(){
 		if(instance == null){

@@ -1,16 +1,19 @@
 package javagame.player;
 
-import javagame.constants.*;
 import java.util.HashMap;
+
+import javagame.constants.ItemTypes;
+import javagame.interfaces.InventoryAccessor;
+import javagame.maingame.InventoryScreen;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import javagame.items.Item;
 
-public class Player {
+public class Player implements InventoryAccessor{
     private static Player instance;
-	private HashMap<ItemTypes, Item> inventory;
+	private HashMap<Item, Integer> inventory;
 	private Integer health;
 	private float playerSpeedMultiplier;
     public Rectangle playerRectangle;
@@ -23,7 +26,6 @@ public class Player {
 	private Image[] walkDown;
 	private Image[] walkLeft;
 	private Image[] walkRight;
-
 	private Animation playerCurrent, movingUp, movingDown, movingLeft, movingRight;
 
     public static Player getInstance(){
@@ -37,7 +39,8 @@ public class Player {
 		this.inventory = new HashMap<>();
 		this.health = 10;
 		this.playerSpeedMultiplier = 0.1f;
-		
+		InventoryScreen.setPlayerInventoryAccessor(() -> this.playerInventory());
+
 		duration = new int[] {200 ,200};
 		
 		try{
@@ -59,21 +62,19 @@ public class Player {
         playerRectangle = new Rectangle(playerScreenX, playerScreenY, playerCurrent.getWidth(), playerCurrent.getHeight());
 	}
 
-	public Integer getHealth(){
+	public java.lang.Integer getHealth(){
 		return this.health;
 	}
 
-
-	
-	public void setHealth(Integer healthToSet){
-		if(this.health - healthToSet <0){
+	public void setHealth(java.lang.Integer healthToSet){
+		if(this.health - healthToSet < 0){
 			this.health = 0;
 		}else{
 			this.health -= healthToSet;
 		}
 	}
 	
-	public void addHealth(Integer healthToAdd){
+	public void addHealth(java.lang.Integer healthToAdd){
 		if(this.health + healthToAdd > 10){
 			this.health = 10;
 		}else{
@@ -139,6 +140,19 @@ public class Player {
     }
 
 	public void addItemToInventory(Item itemToAdd){
-		inventory.put(itemToAdd.getItemType(), itemToAdd);
+		if(inventory.get(itemToAdd) == null) {
+			inventory.put(itemToAdd, 1);
+		}else{
+			inventory.put(itemToAdd, inventory.get(itemToAdd) + 1);
+		}
+	}
+
+	@Override
+	public HashMap<Item, Integer> playerInventory() {
+		if(this.inventory == null) {
+			throw new NullPointerException();
+		}else{
+			return this.inventory;
+		}
 	}
 }
