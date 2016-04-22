@@ -39,7 +39,7 @@ public class Player implements InventoryAccessor{
 		this.inventory = new HashMap<>();
 		this.health = 10;
 		this.playerSpeedMultiplier = 0.1f;
-		InventoryScreen.setPlayerInventoryAccessor(() -> this.playerInventory());
+		InventoryScreen.setPlayerInventoryAccessor(this);
 
 		duration = new int[] {200 ,200};
 		
@@ -66,7 +66,7 @@ public class Player implements InventoryAccessor{
 		return this.health;
 	}
 
-	public void setHealth(java.lang.Integer healthToSet){
+	public void setHealth(Integer healthToSet){
 		if(this.health - healthToSet < 0){
 			this.health = 0;
 		}else{
@@ -74,7 +74,7 @@ public class Player implements InventoryAccessor{
 		}
 	}
 	
-	public void addHealth(java.lang.Integer healthToAdd){
+	public void addHealth(Integer healthToAdd){
 		if(this.health + healthToAdd > 10){
 			this.health = 10;
 		}else{
@@ -140,19 +140,15 @@ public class Player implements InventoryAccessor{
     }
 
 	public void addItemToInventory(Item itemToAdd){
-		if(inventory.get(itemToAdd) == null) {
-			inventory.put(itemToAdd, 1);
+		if(inventory.containsKey(itemToAdd)) {
+			inventory.replace(itemToAdd, inventory.get(itemToAdd) + 1);
 		}else{
-			inventory.put(itemToAdd, inventory.get(itemToAdd) + 1);
+			inventory.put(itemToAdd, 1);
 		}
 	}
 
 	@Override
-	public HashMap<Item, Integer> playerInventory() {
-		if(this.inventory == null) {
-			throw new NullPointerException();
-		}else{
-			return this.inventory;
-		}
+	public HashMap<Item, Integer> getQuantitiesAndItems() {
+		return (HashMap<Item, Integer>)inventory.clone();
 	}
 }

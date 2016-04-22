@@ -3,9 +3,8 @@ package javagame.items;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import javagame.constants.ItemTypes;
-import javagame.interfaces.Useable;
 
-public abstract class Item implements Useable {
+public abstract class Item{
 
 	private float itemX;
 	private float itemY;
@@ -35,6 +34,10 @@ public abstract class Item implements Useable {
 
 	public final String toString(){
 		return this.id.toString();
+	}
+
+	public void use(){
+
 	}
 
 	public final void render(float itemOffSetX, float itemOffSetY){
