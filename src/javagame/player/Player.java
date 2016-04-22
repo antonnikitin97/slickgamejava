@@ -16,7 +16,7 @@ public class Player implements InventoryAccessor{
 	private HashMap<Item, Integer> inventory;
 	private Integer health;
 	private float playerSpeedMultiplier;
-    public Rectangle playerRectangle;
+    private Rectangle playerRectangle;
 	private int[] duration;
 	private float playerWorldX;
     private float playerWorldY;
@@ -139,16 +139,18 @@ public class Player implements InventoryAccessor{
         return playerRectangle;
     }
 
-	public void addItemToInventory(Item itemToAdd){
-		if(inventory.containsKey(itemToAdd)) {
-			inventory.replace(itemToAdd, inventory.get(itemToAdd) + 1);
-		}else{
-			inventory.put(itemToAdd, 1);
+	public void addItemToInventory(Item itemToAdd) {
+		for (Item i : inventory.keySet()) {
+			if (i.equals(itemToAdd)) {
+				inventory.put(i, inventory.get(i) + 1);
+				return;
+			}
 		}
+		inventory.put(itemToAdd, 1);
 	}
 
 	@Override
 	public HashMap<Item, Integer> getQuantitiesAndItems() {
-		return (HashMap<Item, Integer>)inventory.clone();
+		return new HashMap<>(inventory);
 	}
 }

@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 
 public class Main {
 
-	public static final String GAME_NAME = "Ham Blaster!";
+	private static final String GAME_NAME = "Ham Blaster!";
 	
 	public static void main(String[] args) {
 		AppGameContainer appGC;

@@ -4,15 +4,12 @@ import javagame.constants.ItemTypes;
 import javagame.*;
 import javagame.interfaces.InventoryAccessor;
 import javagame.items.Item;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tests.PackedSheetTest;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -23,7 +20,7 @@ public class InventoryScreen extends BasicGameState {
     private Integer stateID;
     private static InventoryAccessor playerInventoryAccessor;
     private HashMap<Item, Integer> inventoryOfPlayer;
-    private Integer counterVariable;
+    private Input gameInput;
 
     public InventoryScreen(Integer stateID){
         this.stateID = stateID;
@@ -37,21 +34,22 @@ public class InventoryScreen extends BasicGameState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+        this.gameInput = gameContainer.getInput();
     }
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-        if(counterVariable != inventoryOfPlayer.size()){
-            for(Item item : inventoryOfPlayer.keySet()){
-                graphics.drawString("Item: " + item.toString()
-                + " Quantity: " + inventoryOfPlayer.get(item), 50, 50);
-                counterVariable++;
-            }
+        for(Item item : inventoryOfPlayer.keySet()){
+            graphics.drawString("Item: " + item.toString() +
+                    " - Quantity: " + inventoryOfPlayer.get(item), 50, 50);
         }
     }
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
+        if(gameInput.isKeyPressed(Input.KEY_G)){
+            stateBasedGame.enterState(1, new FadeOutTransition(Color.blue), new FadeInTransition(Color.red));
+        }
     }
 
     @Override
@@ -61,7 +59,6 @@ public class InventoryScreen extends BasicGameState {
 
     @Override
     public void leave(GameContainer container, StateBasedGame game) throws SlickException {
-        counterVariable = 0;
     }
 
     public static void setPlayerInventoryAccessor(InventoryAccessor playerInventoryAccessorToSet){

@@ -32,6 +32,7 @@ public abstract class Item{
 		return this.id.getId();
 	}
 
+	@Override
 	public final String toString(){
 		return this.id.toString();
 	}
@@ -42,5 +43,16 @@ public abstract class Item{
 
 	public final void render(float itemOffSetX, float itemOffSetY){
 		model.draw(modelRectangle.getX() + itemOffSetX, modelRectangle.getY() + itemOffSetY, itemWidth, itemHeight);
+	}
+
+	@Override
+	public boolean equals(Object comparator){
+		if(comparator instanceof Item){
+			Item i = (Item)comparator;
+			if(i.getId() == this.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
