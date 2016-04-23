@@ -9,7 +9,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import javagame.player.Player;
+import javagame.entities.Player;
 import java.util.ArrayList;
 
 public class Play extends BasicGameState {
@@ -35,7 +35,7 @@ public class Play extends BasicGameState {
 		gameInput = gc.getInput();
         items = new ArrayList<>();
         factory = ItemFactory.getInstance();
-		worldSpaceRectangle = new Rectangle(320 - player.getPlayerWorldX(), 160 - player.getPlayerWorldY() , player.getPlayerRectangle().getWidth()
+		worldSpaceRectangle = new Rectangle(320 - player.getEntityWorldX(), 160 - player.getEntityWorldY() , player.getPlayerRectangle().getWidth()
 				,player.getPlayerRectangle().getHeight());
 
         items.add(factory.getItem(ItemTypes.HEALTH_BUFF, 50, 50));
@@ -44,15 +44,15 @@ public class Play extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-		worldMap.draw(player.getPlayerWorldX(), player.getPlayerWorldY());
-		this.player.getPlayerCurrent().draw(player.getPlayerScreenX(), player.getPlayerScreenY());
+		worldMap.draw(player.getEntityWorldX(), player.getEntityWorldY());
+		this.player.getEntityCurrent().draw(player.getPlayerScreenX(), player.getPlayerScreenY());
 
 		g.fill(worldSpaceRectangle);
 		g.draw(worldSpaceRectangle);
 
 		for (Item i : items){
 			//Renders the item on screen, offsetted by the player's movement to ensure it stays in the same position all the time.
-			i.render(player.getPlayerWorldX(), player.getPlayerWorldY());
+			i.render(player.getEntityWorldX(), player.getEntityWorldY());
 		}
 
 		if(quit){
@@ -67,26 +67,26 @@ public class Play extends BasicGameState {
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
-        worldSpaceRectangle = new Rectangle(320 - player.getPlayerWorldX(), 160 - player.getPlayerWorldY() , player.getPlayerRectangle().getWidth()
+        worldSpaceRectangle = new Rectangle(320 - player.getEntityWorldX(), 160 - player.getEntityWorldY() , player.getPlayerRectangle().getWidth()
         ,player.getPlayerRectangle().getHeight());
 
 		removeItemsFromWorld();
 
-        if(gameInput.isKeyDown(Input.KEY_UP) && player.getPlayerWorldY() < 159.500f){
-				player.setPlayerCurrent(player.getMovingUp());
-				player.setPlayerWorldY(player.getPlayerWorldY() + (delta * player.getPlayerSpeedMultiplier()));
+        if(gameInput.isKeyDown(Input.KEY_UP) && player.getEntityWorldY() < 159.500f){
+				player.setEntityCurrent(player.getMovingUp());
+				player.setEntityWorldY(player.getEntityWorldY() + (delta * player.getPlayerSpeedMultiplier()));
 			}
-			if(gameInput.isKeyDown(Input.KEY_DOWN) && player.getPlayerWorldY() > -601.399){
-				player.setPlayerCurrent(player.getMovingDown());
-				player.setPlayerWorldY(player.getPlayerWorldY() - (delta * player.getPlayerSpeedMultiplier()));
+			if(gameInput.isKeyDown(Input.KEY_DOWN) && player.getEntityWorldY() > -601.399){
+				player.setEntityCurrent(player.getMovingDown());
+				player.setEntityWorldY(player.getEntityWorldY() - (delta * player.getPlayerSpeedMultiplier()));
 			}
-			if(gameInput.isKeyDown(Input.KEY_LEFT) && player.getPlayerWorldX() < 319.710){
-				player.setPlayerCurrent(player.getMovingLeft());
-				player.setPlayerWorldX(player.getPlayerWorldX() + (delta * player.getPlayerSpeedMultiplier()));
+			if(gameInput.isKeyDown(Input.KEY_LEFT) && player.getEntityWorldX() < 319.710){
+				player.setEntityCurrent(player.getMovingLeft());
+				player.setEntityWorldX(player.getEntityWorldX() + (delta * player.getPlayerSpeedMultiplier()));
 			}
-			if(gameInput.isKeyDown(Input.KEY_RIGHT) && player.getPlayerWorldX() > -839.744){
-				player.setPlayerCurrent(player.getMovingRight());
-				player.setPlayerWorldX(player.getPlayerWorldX() - (delta * player.getPlayerSpeedMultiplier()));
+			if(gameInput.isKeyDown(Input.KEY_RIGHT) && player.getEntityWorldX() > -839.744){
+				player.setEntityCurrent(player.getMovingRight());
+				player.setEntityWorldX(player.getEntityWorldX() - (delta * player.getPlayerSpeedMultiplier()));
 			}
 			if(gameInput.isKeyDown(Input.KEY_I)){
 				game.enterState(2, new FadeOutTransition(), new FadeInTransition());
