@@ -21,10 +21,12 @@ public class Player extends Entity implements InventoryAccessor{
             return instance;
     }
 
-	private Player(){
+	private Player(Integer health, Float speedMultiplier, int[] duration, Image[] walkUp, Image[] walkDown, Image[] walkLeft, Image[] walkRight){
+
+		super(health, speedMultiplier, duration, walkUp, walkDown, walkLeft, walkRight);
 		this.inventory = new HashMap<>();
 		this.health = 10;
-		this.SpeedMultiplier = 0.1f;
+		this.speedMultiplier = 0.1f;
 		InventoryScreen.setPlayerInventoryAccessor(this);
 
 		duration = new int[] {200 ,200};
@@ -57,7 +59,7 @@ public class Player extends Entity implements InventoryAccessor{
 	}
 
 	public float getPlayerSpeedMultiplier(){
-		return this.SpeedMultiplier;
+		return this.speedMultiplier;
 	}
 
     public Rectangle getPlayerRectangle() {

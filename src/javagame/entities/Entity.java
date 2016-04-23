@@ -5,7 +5,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 
-public class Entity {
+public abstract class Entity {
     protected float entityWorldX;
     protected float entityWorldY;
     protected float entityScreenX = 320;
@@ -17,8 +17,18 @@ public class Entity {
     protected int[] duration;
     protected Animation entityCurrent, movingUp, movingDown, movingLeft, movingRight;
     protected Integer health;
-    protected float SpeedMultiplier;
+    protected float speedMultiplier;
     protected Rectangle entityRectangle;
+
+    public Entity(Integer health, Float speedMultiplier, int[] duration, Image[] walkUp, Image[] walkDown, Image[] walkLeft, Image[] walkRight){
+        this.health = health;
+        this.speedMultiplier = speedMultiplier;
+        this.duration = duration;
+        this.walkUp = walkUp;
+        this.walkDown = walkDown;
+        this.walkLeft = walkLeft;
+        this.walkRight = walkRight;
+    }
 
     public Animation getEntityCurrent() {
         return entityCurrent;
