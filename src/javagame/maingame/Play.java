@@ -30,7 +30,11 @@ public class Play extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		quit = false;
-		player = Player.getInstance();
+		player = Player.getInstance(10, 0.1f,new int[] {200 ,200},
+				new Image[]{new Image("res/buckysBack.png"), new Image("res/buckysBack.png")},
+				new Image[]{new Image("res/buckysFront.png"), new Image("res/buckysFront.png")},
+				new Image[]{new Image("res/buckysLeft.png"), new Image("res/buckysLeft.png")},
+				new Image[]{new Image("res/buckysRight.png"), new Image("res/buckysRight.png")});
 		worldMap = new Image("res/world.png");
 		gameInput = gc.getInput();
         items = new ArrayList<>();
@@ -45,7 +49,7 @@ public class Play extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 		worldMap.draw(player.getEntityWorldX(), player.getEntityWorldY());
-		this.player.getEntityCurrent().draw(player.getPlayerScreenX(), player.getPlayerScreenY());
+		this.player.getEntityCurrent().draw(player.getEntityScreenX(), player.getEntityScreenY());
 
 		g.fill(worldSpaceRectangle);
 		g.draw(worldSpaceRectangle);

@@ -28,6 +28,10 @@ public abstract class Entity {
         this.walkDown = walkDown;
         this.walkLeft = walkLeft;
         this.walkRight = walkRight;
+        movingUp = new Animation(walkUp, duration, false);
+        movingDown = new Animation(walkDown, duration, false);
+        movingLeft = new Animation(walkLeft, duration, false);
+        movingRight = new Animation(walkRight, duration, false);
     }
 
     public Animation getEntityCurrent() {
@@ -70,6 +74,14 @@ public abstract class Entity {
     public void setEntityWorldY(float entityWorldY) {
         this.entityWorldY = entityWorldY;
         this.entityRectangle.setBounds(entityScreenX, entityScreenY, this.entityCurrent.getWidth(), this.entityCurrent.getHeight());
+    }
+
+    public float getEntityScreenX() {
+        return entityScreenX;
+    }
+
+    public float getEntityScreenY() {
+        return entityScreenY;
     }
 
     public Integer getHealth(){
