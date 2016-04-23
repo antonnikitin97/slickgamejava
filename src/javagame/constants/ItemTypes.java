@@ -10,7 +10,8 @@ public enum ItemTypes {
 		this.id = id;
 		this.nameRepresentation = nameRepresentation;
 	}
-	
+
+	//Returns ID of the item
 	public int getId(){
 		return this.id;
 	}
