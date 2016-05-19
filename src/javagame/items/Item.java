@@ -1,5 +1,6 @@
 package javagame.items;
 
+import javagame.interfaces.InventoryAccessor;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import javagame.constants.ItemTypes;
@@ -13,6 +14,8 @@ public abstract class Item{
 	private ItemTypes id;
     private float itemWidth;
     private float itemHeight;
+
+	protected char itemUseKey;
 	
 	public Item(Image model, float itemX, float itemY, float itemWidth, float itemHeight, ItemTypes id) {
 		this.model = model;
@@ -28,8 +31,12 @@ public abstract class Item{
 		return modelRectangle.intersects(rectangle);
 	}
 
-	public final java.lang.Integer getId(){
+	public final Integer getId(){
 		return this.id.getId();
+	}
+
+	public ItemTypes getType(){
+		return this.id;
 	}
 
 	@Override
@@ -37,12 +44,12 @@ public abstract class Item{
 		return this.id.toString();
 	}
 
-	public void use(){
-
-	}
-
 	public final void render(float itemOffSetX, float itemOffSetY){
 		model.draw(modelRectangle.getX() + itemOffSetX, modelRectangle.getY() + itemOffSetY, itemWidth, itemHeight);
+	}
+
+	public int getItemUseKey() {
+		return (int)itemUseKey;
 	}
 
 	@Override

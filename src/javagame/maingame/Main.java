@@ -7,7 +7,7 @@ public class Main {
 
 	private static final String GAME_NAME = "Ham Blaster!";
 	
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		AppGameContainer appGC;
 		try{
 			appGC = new AppGameContainer(new Game(GAME_NAME));
@@ -19,5 +19,4 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
-
 }

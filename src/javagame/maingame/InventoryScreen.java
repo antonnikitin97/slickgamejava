@@ -3,6 +3,7 @@ package javagame.maingame;
 import javagame.constants.ItemTypes;
 import javagame.*;
 import javagame.interfaces.InventoryAccessor;
+import javagame.interfaces.ItemListener;
 import javagame.items.Item;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
@@ -15,12 +16,13 @@ import java.util.HashMap;
 /**
  * Created by anton on 19/04/2016.
  */
-public class InventoryScreen extends BasicGameState {
+public class InventoryScreen extends BasicGameState{
 
     private Integer stateID;
     private static InventoryAccessor playerInventoryAccessor;
     private HashMap<Item, Integer> inventoryOfPlayer;
     private Input gameInput;
+    private static ItemListener itemListener;
 
     public InventoryScreen(Integer stateID){
         this.stateID = stateID;
@@ -41,7 +43,7 @@ public class InventoryScreen extends BasicGameState {
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
         for(Item item : inventoryOfPlayer.keySet()){
             graphics.drawString("Item: " + item.toString() +
-                    " - Quantity: " + inventoryOfPlayer.get(item), 50, 50);
+                    " - Quantity: " + inventoryOfPlayer.get(item) + " - Use: " + item.getItemUseKey(), 50, 50);
         }
     }
 
@@ -49,6 +51,12 @@ public class InventoryScreen extends BasicGameState {
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
         if(gameInput.isKeyPressed(Input.KEY_G)){
             stateBasedGame.enterState(1, new FadeOutTransition(Color.blue), new FadeInTransition(Color.red));
+        }
+        for(Item i : inventoryOfPlayer.keySet()){
+            if(gameInput.isKeyPressed(i.getItemUseKey())){
+                itemListener.itemUsed(i.getType());
+                System.out.println("Fired!");
+            }
         }
     }
 
@@ -63,5 +71,9 @@ public class InventoryScreen extends BasicGameState {
 
     public static void setPlayerInventoryAccessor(InventoryAccessor playerInventoryAccessorToSet){
         playerInventoryAccessor = playerInventoryAccessorToSet;
+    }
+
+    public static void setItemListener(ItemListener itemListenerToSet){
+        itemListener = itemListenerToSet;
     }
 }

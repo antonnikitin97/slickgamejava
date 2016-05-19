@@ -20,5 +20,4 @@ public enum ItemTypes {
 		return this.nameRepresentation;
 	}
 
-
 }

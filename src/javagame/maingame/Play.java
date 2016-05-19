@@ -51,8 +51,10 @@ public class Play extends BasicGameState {
 		worldMap.draw(player.getEntityWorldX(), player.getEntityWorldY());
 		this.player.getEntityCurrent().draw(player.getEntityScreenX(), player.getEntityScreenY());
 
+		/**
 		g.fill(worldSpaceRectangle);
 		g.draw(worldSpaceRectangle);
+		 */
 
 		for (Item i : items){
 			//Renders the item on screen, offsetted by the player's movement to ensure it stays in the same position all the time.
@@ -77,24 +79,24 @@ public class Play extends BasicGameState {
 		removeItemsFromWorld();
 
         if(gameInput.isKeyDown(Input.KEY_UP) && player.getEntityWorldY() < 159.500f){
-				player.setEntityCurrent(player.getMovingUp());
-				player.setEntityWorldY(player.getEntityWorldY() + (delta * player.getPlayerSpeedMultiplier()));
-			}
-			if(gameInput.isKeyDown(Input.KEY_DOWN) && player.getEntityWorldY() > -601.399){
-				player.setEntityCurrent(player.getMovingDown());
-				player.setEntityWorldY(player.getEntityWorldY() - (delta * player.getPlayerSpeedMultiplier()));
-			}
-			if(gameInput.isKeyDown(Input.KEY_LEFT) && player.getEntityWorldX() < 319.710){
-				player.setEntityCurrent(player.getMovingLeft());
-				player.setEntityWorldX(player.getEntityWorldX() + (delta * player.getPlayerSpeedMultiplier()));
-			}
-			if(gameInput.isKeyDown(Input.KEY_RIGHT) && player.getEntityWorldX() > -839.744){
-				player.setEntityCurrent(player.getMovingRight());
-				player.setEntityWorldX(player.getEntityWorldX() - (delta * player.getPlayerSpeedMultiplier()));
-			}
-			if(gameInput.isKeyDown(Input.KEY_I)){
-				game.enterState(2, new FadeOutTransition(), new FadeInTransition());
-			}
+			player.setEntityCurrent(player.getMovingUp());
+			player.setEntityWorldY(player.getEntityWorldY() + (delta * player.getPlayerSpeedMultiplier()));
+		}
+		if(gameInput.isKeyDown(Input.KEY_DOWN) && player.getEntityWorldY() > -601.399){
+			player.setEntityCurrent(player.getMovingDown());
+			player.setEntityWorldY(player.getEntityWorldY() - (delta * player.getPlayerSpeedMultiplier()));
+		}
+		if(gameInput.isKeyDown(Input.KEY_LEFT) && player.getEntityWorldX() < 319.710){
+			player.setEntityCurrent(player.getMovingLeft());
+			player.setEntityWorldX(player.getEntityWorldX() + (delta * player.getPlayerSpeedMultiplier()));
+		}
+		if(gameInput.isKeyDown(Input.KEY_RIGHT) && player.getEntityWorldX() > -839.744){
+			player.setEntityCurrent(player.getMovingRight());
+			player.setEntityWorldX(player.getEntityWorldX() - (delta * player.getPlayerSpeedMultiplier()));
+		}
+		if(gameInput.isKeyDown(Input.KEY_I)){
+			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
+		}
 		if(gameInput.isKeyDown(Input.KEY_ESCAPE)){
 			quit = true;
 		}
