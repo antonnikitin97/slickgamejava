@@ -10,6 +10,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import javagame.items.Item;
 
+import static javagame.constants.ItemTypes.HEALTH_BUFF;
+
 public class Player extends Entity implements InventoryAccessor, ItemListener{
     private static Player instance;
 	private HashMap<Item, Integer> inventory;
@@ -43,6 +45,16 @@ public class Player extends Entity implements InventoryAccessor, ItemListener{
         return entityRectangle;
     }
 
+	public boolean removeItemFromInventory(Item itemToRemove){
+		for (Item i : inventory.keySet()) {
+			if (i.equals(itemToRemove) || this.inventory.get(itemToRemove) > 0) {
+				inventory.put(i, inventory.get(i) - 1);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void addItemToInventory(Item itemToAdd) {
 		for (Item i : inventory.keySet()) {
 			if (i.equals(itemToAdd)) {
@@ -59,8 +71,8 @@ public class Player extends Entity implements InventoryAccessor, ItemListener{
 	}
 
 	@Override
-	public void itemUsed(ItemTypes id) {
-		switch (id){
+	public void itemUsed(Item itemUsed) {
+		switch (itemUsed.getType()){
 			case HEALTH_BUFF:
 				this.addHealth(2);
 				System.out.println("Success!");

@@ -48,8 +48,8 @@ public abstract class Item{
 		model.draw(modelRectangle.getX() + itemOffSetX, modelRectangle.getY() + itemOffSetY, itemWidth, itemHeight);
 	}
 
-	public int getItemUseKey() {
-		return (int)itemUseKey;
+	public char getItemUseKey() {
+		return itemUseKey;
 	}
 
 	@Override

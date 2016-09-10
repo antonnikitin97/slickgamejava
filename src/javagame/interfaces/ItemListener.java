@@ -1,7 +1,7 @@
 package javagame.interfaces;
 
-import javagame.constants.ItemTypes;
+import javagame.items.Item;
 
 public interface ItemListener {
-    void itemUsed(ItemTypes id);
+    void itemUsed(Item itemUsed);
 }

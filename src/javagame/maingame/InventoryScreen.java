@@ -49,12 +49,13 @@ public class InventoryScreen extends BasicGameState{
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
+        inventoryOfPlayer = playerInventoryAccessor.getQuantitiesAndItems();
         if(gameInput.isKeyPressed(Input.KEY_G)){
             stateBasedGame.enterState(1, new FadeOutTransition(Color.blue), new FadeInTransition(Color.red));
         }
-        for(Item i : inventoryOfPlayer.keySet()){
-            if(gameInput.isKeyPressed(i.getItemUseKey())){
-                itemListener.itemUsed(i.getType());
+        for(Item item : inventoryOfPlayer.keySet()){
+            if(gameInput.isKeyPressed(item.getItemUseKey())){
+                itemListener.itemUsed(item);
                 System.out.println("Fired!");
             }
         }
@@ -62,7 +63,6 @@ public class InventoryScreen extends BasicGameState{
 
     @Override
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-        inventoryOfPlayer = playerInventoryAccessor.getQuantitiesAndItems();
     }
 
     @Override
