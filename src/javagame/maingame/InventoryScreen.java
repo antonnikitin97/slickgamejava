@@ -1,7 +1,5 @@
 package javagame.maingame;
 
-import javagame.constants.ItemTypes;
-import javagame.*;
 import javagame.interfaces.InventoryAccessor;
 import javagame.interfaces.ItemListener;
 import javagame.items.Item;
@@ -43,7 +41,7 @@ public class InventoryScreen extends BasicGameState{
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
         for(Item item : inventoryOfPlayer.keySet()){
             graphics.drawString("Item: " + item.toString() +
-                    " - Quantity: " + inventoryOfPlayer.get(item) + " - Use: " + item.getItemUseKey(), 50, 50);
+                    " - Quantity: " + inventoryOfPlayer.get(item) + " - Use: " + item.getItemUseKeyCharRepresentation(), 50, 50);
         }
     }
 
@@ -54,9 +52,8 @@ public class InventoryScreen extends BasicGameState{
             stateBasedGame.enterState(1, new FadeOutTransition(Color.blue), new FadeInTransition(Color.red));
         }
         for(Item item : inventoryOfPlayer.keySet()){
-            if(gameInput.isKeyPressed(item.getItemUseKey())){
+            if(gameInput.isKeyPressed(item.getItemUseKeyInput())){
                 itemListener.itemUsed(item);
-                System.out.println("Fired!");
             }
         }
     }

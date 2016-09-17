@@ -19,7 +19,8 @@ public class Play extends BasicGameState {
 	private Input gameInput;
 	private Image worldMap;
 	private boolean quit;
-    private ArrayList<Item> items;
+	private boolean playerStats;
+    private ArrayList<Item> itemsToRender;
     private ItemFactory factory;
 	private Rectangle worldSpaceRectangle;
 	
@@ -30,6 +31,7 @@ public class Play extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		quit = false;
+		playerStats = false;
 		player = Player.getInstance(10, 0.1f,new int[] {200 ,200},
 				new Image[]{new Image("res/buckysBack.png"), new Image("res/buckysBack.png")},
 				new Image[]{new Image("res/buckysFront.png"), new Image("res/buckysFront.png")},
@@ -37,13 +39,13 @@ public class Play extends BasicGameState {
 				new Image[]{new Image("res/buckysRight.png"), new Image("res/buckysRight.png")});
 		worldMap = new Image("res/world.png");
 		gameInput = gc.getInput();
-        items = new ArrayList<>();
+        itemsToRender = new ArrayList<>();
         factory = ItemFactory.getInstance();
 		worldSpaceRectangle = new Rectangle(320 - player.getEntityWorldX(), 160 - player.getEntityWorldY() , player.getPlayerRectangle().getWidth()
 				,player.getPlayerRectangle().getHeight());
 
-        items.add(factory.getItem(ItemTypes.HEALTH_BUFF, 50, 50));
-		items.add(factory.getItem(ItemTypes.HEALTH_BUFF, 20, 20));
+        itemsToRender.add(factory.getItem(ItemTypes.HEALTH_BUFF, 50, 50));
+		itemsToRender.add(factory.getItem(ItemTypes.HEALTH_BUFF, 20, 20));
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class Play extends BasicGameState {
 		g.draw(worldSpaceRectangle);
 		 */
 
-		for (Item i : items){
+		for (Item i : itemsToRender){
 			//Renders the item on screen, offsetted by the player's movement to ensure it stays in the same position all the time.
 			i.render(player.getEntityWorldX(), player.getEntityWorldY());
 		}
@@ -66,6 +68,13 @@ public class Play extends BasicGameState {
 			g.drawString("Main Menu (M)", 250, 150);
 			g.drawString("Quit (Q)", 250, 200);
 			if(!quit){
+				g.clear();
+			}
+		}
+
+		if(playerStats){
+			g.drawString("Health: " + player.getHealth(), 250, 100);
+			if(!playerStats){
 				g.clear();
 			}
 		}
@@ -119,7 +128,7 @@ public class Play extends BasicGameState {
 	}
 
 	private void removeItemsFromWorld(){
-		items.removeIf(item ->
+		itemsToRender.removeIf(item ->
 		{
 			if (item.intersects(worldSpaceRectangle)) {
 				player.addItemToInventory(item);

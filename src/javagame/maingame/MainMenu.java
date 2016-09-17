@@ -33,9 +33,9 @@ public class MainMenu extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-		g.drawString("Welcome to Bucky World!", 100, 50);
-		playButton.draw(100, 100);
-		exitButton.draw(100, 200);
+		g.drawString("Welcome to Bucky World!\nIn game\nI - Inventory\nS - Stats", 100, 50);
+		playButton.draw(100, 200);
+		exitButton.draw(100, 300);
 	}
 
 	@Override
@@ -44,14 +44,14 @@ public class MainMenu extends BasicGameState {
 		mouseY = Mouse.getY();
 		// Exit Button
 		if((mouseX > 100 && mouseX < 311)
-			&& (mouseY > 109 && mouseY < 160)){
+			&& (mouseY > 9 && mouseY < 60)){
 			if(gameInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
 				System.exit(0);
 			}
 		}
 		//Play Button
 		if((mouseX > 100 && mouseX < 311)
-				&& (mouseY > 209 && mouseY < 260)){
+				&& (mouseY > 109 && mouseY < 160)){
 				if(gameInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
 					game.enterState(1, new FadeOutTransition() , new FadeInTransition());
 				}

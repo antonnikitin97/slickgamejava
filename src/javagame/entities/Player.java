@@ -46,11 +46,9 @@ public class Player extends Entity implements InventoryAccessor, ItemListener{
     }
 
 	public boolean removeItemFromInventory(Item itemToRemove){
-		for (Item i : inventory.keySet()) {
-			if (i.equals(itemToRemove) || this.inventory.get(itemToRemove) > 0) {
-				inventory.put(i, inventory.get(i) - 1);
-				return true;
-			}
+		if(this.inventory.get(itemToRemove) > 0){
+			this.inventory.put(itemToRemove , (this.inventory.get(itemToRemove) - 1));
+			return true;
 		}
 		return false;
 	}
@@ -72,11 +70,15 @@ public class Player extends Entity implements InventoryAccessor, ItemListener{
 
 	@Override
 	public void itemUsed(Item itemUsed) {
-		switch (itemUsed.getType()){
-			case HEALTH_BUFF:
-				this.addHealth(2);
-				System.out.println("Success!");
-				break;
+		if(removeItemFromInventory(itemUsed)) {
+			switch (itemUsed.getType()) {
+				case HEALTH_BUFF:
+					this.addHealth(2);
+					System.out.println("Success!");
+					break;
+			}
+		}else{
+			System.out.println("You don't have any more of that item :'( !");
 		}
 	}
 }
