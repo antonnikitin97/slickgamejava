@@ -21,6 +21,7 @@ public class ItemFactory {
 		itemImages = new HashMap<>();
 		try{
 			itemImages.put(ItemTypes.HEALTH_BUFF.getId(), new Image("res/items/health.png"));
+			itemImages.put(ItemTypes.WEAPON.getId(), new Image("res/weapons/projectile.png"));
 		}
 		catch (SlickException e){
 			e.printStackTrace();

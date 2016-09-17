@@ -1,7 +1,8 @@
 package javagame.constants;
 
 public enum ItemTypes {
-	HEALTH_BUFF(0, "Health Buff");
+	HEALTH_BUFF(0, "Health Buff"),
+	WEAPON(1, "Weapon");
 	
 	int id;
 	String nameRepresentation;
